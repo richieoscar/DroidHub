@@ -3,10 +3,12 @@ package com.example.droidhub
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity : AppCompatActivity() {
@@ -19,27 +21,19 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var confirmPassword:EditText
     lateinit var signUp: Button
     lateinit var alertDialog:AlertDialog
+    lateinit var fAuth:FirebaseAuth
 
-    var mfAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+        fAuth = FirebaseAuth.getInstance()
 
         bindViews()
         hideProgressBar()
         signUp()
         gotoLogin()
     }
-
-    private fun gotoLogin() {
-        login.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-    }
-
 
     private fun bindViews() {
         progressbar = findViewById(R.id.progressBar)
@@ -51,9 +45,50 @@ class SignUpActivity : AppCompatActivity() {
         signUp = findViewById(R.id.signup_button)
     }
 
+
+    private fun gotoLogin() {
+        login.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+    }
+
     private fun signUp(){
        signUp.setOnClickListener{
-           showSuccessAlert()
+           //showSuccessAlert()
+           var userName:String = name.text.toString()
+           var userEmail:String = email.text.toString().trimEnd()
+           var userPassword:String = password.text.toString()
+           var userConfirmPassword:String = confirmPassword.text.toString()
+
+           if (userName.isEmpty() || userEmail.isEmpty()|| userPassword.isEmpty()|| userConfirmPassword.isEmpty()){
+               Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
+           }
+           else if(userPassword!= userConfirmPassword){
+               confirmPassword.error = "Password do not match"
+
+           }
+           else if(userPassword.length < 7){
+               password.error = "password must be more than 7 characters"
+           }
+           else{
+               fAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(OnCompleteListener { task ->
+                   if (task.isSuccessful) {
+                       showProgressBar()
+                       showSuccessAlert()
+                       fAuth.currentUser!!.sendEmailVerification()
+                       fAuth.signOut()
+                       hideProgressBar()
+                   } else {
+                       Toast.makeText(this, "Sign Up Failed", Toast.LENGTH_SHORT).show()
+                       Log.d(TAG, "signUp: sign up failed ")
+                   }
+               })
+
+           }
+
        }
     }
 
