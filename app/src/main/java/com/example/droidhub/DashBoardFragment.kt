@@ -24,6 +24,7 @@ class DashBoardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         var cardView: CardView = view!!.findViewById(R.id.cardView_Upload)
 
         cardView.setOnClickListener{

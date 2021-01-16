@@ -14,7 +14,8 @@
             android:id="@+id/action_dashBoardFragment_to_uploadFragment"
             app:destination="@id/uploadFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
