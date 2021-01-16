@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -78,6 +79,7 @@ class SignUpActivity : AppCompatActivity() {
                    if (task.isSuccessful) {
                        showProgressBar()
                        showSuccessAlert()
+                       setDisplayName(userName)
                        fAuth.currentUser!!.sendEmailVerification()
                        fAuth.signOut()
                        hideProgressBar()
@@ -110,6 +112,13 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+    private fun setDisplayName(name:String){
+        val setName = UserProfileChangeRequest
+                .Builder()
+                .setDisplayName(name)
+                .build()
+        fAuth.currentUser!!.updateProfile(setName)
     }
 
     private fun showProgressBar(){

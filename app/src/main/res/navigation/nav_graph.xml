@@ -13,13 +13,23 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_uploadFragment"
             app:destination="@id/uploadFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.example.droidhub.UploadFragment"
         android:label="fragment_upload"
         tools:layout="@layout/fragment_upload" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.droidhub.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

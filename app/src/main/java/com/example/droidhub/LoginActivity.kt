@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
                             gotoDashBoard()
                             Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
                             hideProgressBar()
+                            finish()
                         } else {
                             hideProgressBar()
                             Toast.makeText(this, "Invalid Details", Toast.LENGTH_SHORT).show()

@@ -26,10 +26,15 @@ class DashBoardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         var cardView: CardView = view!!.findViewById(R.id.cardView_Upload)
+        var cardViewProfile:CardView = view!!.findViewById(R.id.cardView_profile)
 
         cardView.setOnClickListener{
             view!!.findNavController().navigate(R.id.action_dashBoardFragment_to_uploadFragment)
 
+        }
+
+        cardViewProfile.setOnClickListener{
+            view!!.findNavController().navigate(R.id.action_dashBoardFragment_to_profileFragment)
         }
     }
 
