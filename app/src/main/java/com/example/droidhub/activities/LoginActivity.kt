@@ -111,6 +111,13 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun checkIfUserIsSignedIn(){
+        var user =mfAuth.currentUser
+        if (user!= null){
+            gotoDashBoard()
+        }
+    }
+
     private fun isUserSignedIn() {
         if (mfAuth.currentUser != null) {
             gotoDashBoard()
@@ -166,6 +173,7 @@ class LoginActivity : AppCompatActivity() {
     private fun gotoDashBoard() {
         var intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun gotoSignUp() {
@@ -187,6 +195,11 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "LoginActivity"
+    }
+
+    override fun onStart() {
+        super.onStart()
+        checkIfUserIsSignedIn()
     }
 
 

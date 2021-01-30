@@ -1,5 +1,6 @@
 package com.example.droidhub
 
+import android.app.usage.StorageStats
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.storage.StorageReference
 
 
 class ProfileFragment : Fragment() {
@@ -23,6 +25,7 @@ class ProfileFragment : Fragment() {
     lateinit var displayNameIcon: ImageView
     lateinit var alertDialog: AlertDialog
     lateinit var name: EditText
+    lateinit var analytics:StorageReference
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +37,7 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mfAuth = FirebaseAuth.getInstance()
+
 
         bindView()
         profileName.text = mfAuth.currentUser!!.displayName.toString()
