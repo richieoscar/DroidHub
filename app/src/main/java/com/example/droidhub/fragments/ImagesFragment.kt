@@ -1,34 +1,31 @@
 package com.example.droidhub.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.droidhub.ImageAdapter
 import com.example.droidhub.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ImagesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+private const val TAG = "ImagesFragment"
 class ImagesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var storageRef: StorageReference
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+    lateinit var cardView: CardView
+    lateinit var recyclerView: RecyclerView
+    lateinit var databaseReference: DatabaseReference
+    lateinit var mFirebaseAuth: FirebaseAuth
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,23 +33,34 @@ class ImagesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_images, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ImagesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                ImagesFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        storage = FirebaseStorage.getInstance()
+
+
+        getImages()
+
     }
+
+    private fun getImages() {
+        var path = "myimages"
+        storageRef = storage.reference.child(path)
+
+        storageRef.downloadUrl.addOnSuccessListener {
+            var imgUrls = it.toString()
+            Log.d(TAG, "onActivityCreated: $imgUrls")
+
+            var images = ArrayList<String>()
+            images.add(imgUrls)
+
+
+            val adapter = ImageAdapter(view!!.context, images)
+            recyclerView = view!!.findViewById(R.id.recyclerview)
+            recyclerView.layoutManager = LinearLayoutManager(view!!.context!!)
+            recyclerView.adapter = adapter
+        }
+    }
+
+
 }

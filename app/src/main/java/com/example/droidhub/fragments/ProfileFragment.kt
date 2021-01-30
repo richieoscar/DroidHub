@@ -1,6 +1,5 @@
-package com.example.droidhub
+package com.example.droidhub.fragments
 
-import android.app.usage.StorageStats
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.example.droidhub.activities.LoginActivity
+import com.example.droidhub.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.StorageReference
 

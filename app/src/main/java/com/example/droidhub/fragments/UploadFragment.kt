@@ -1,8 +1,7 @@
-package com.example.droidhub
+package com.example.droidhub.fragments
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.droidhub.R
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +24,6 @@ class UploadFragment : Fragment() {
     private lateinit var uploadFile: Button
     private lateinit var progressBar: ProgressBar
     lateinit var storageReference: StorageReference
-    lateinit var alertDialog: AlertDialog
     private lateinit var image: ImageView
     lateinit var fileName: TextView
     lateinit var sucessful: TextView
@@ -36,8 +35,10 @@ class UploadFragment : Fragment() {
         private const val PICK_IMAGE_CODE = 1000
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_upload, container, false)
@@ -62,7 +63,7 @@ class UploadFragment : Fragment() {
             fileName.text = data!!.dataString
             Glide.with(view!!.context).load(data.dataString).into(image)
             Toast.makeText(context!!, "File selected", Toast.LENGTH_SHORT).show()
-          //  uploadFile(data)
+            //  uploadFile(data)
             upload(data)
 
         }
@@ -93,48 +94,14 @@ class UploadFragment : Fragment() {
             sucessful.visibility = View.INVISIBLE
 
             val intent = Intent(Intent.ACTION_GET_CONTENT)
-                    .setType("image/*")
+                .setType("image/*")
             startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_CODE)
         }
 
     }
 
 
-    private fun uploadFile(data: Intent?) {
-        uploadFile.setOnClickListener {
-            if (fileName.text.isEmpty()) {
-                uploadFile.isEnabled = false
-            } else {
-                uploadFile.isEnabled = true
-                showProgressBar()
-                val chooseTask = storageReference.putFile(data!!.data!!)
-                val ref = storageReference.child("myimages/")
 
-                val task = chooseTask.continueWithTask { task ->
-                    if (!task.isSuccessful) {
-                        Toast.makeText(context, "Failed ", Toast.LENGTH_SHORT).show()
-                        hideProgressBar()
-                    }
-                    storageReference!!.downloadUrl
-                }.addOnCompleteListener { task ->
-                    // showProgressBar()
-                    if (task.isSuccessful) {
-                        showProgressBar()
-                        val downLoadUri = task.result
-                        val url = downLoadUri!!.toString()
-
-                        Log.d(TAG, url)
-
-                        // Glide.with(context!!).load(url).into(image)
-                        image.setImageResource(R.drawable.ic_baseline_photo_24)
-                        hideProgressBar()
-                        fileName.text = "filename"
-                        sucessful.visibility = View.VISIBLE
-                    }
-                }
-            }
-        }
-    }
 
 
     private fun upload(data: Intent?) {
@@ -146,7 +113,8 @@ class UploadFragment : Fragment() {
                 showProgressBar()
 
                 var user = mFirebaseAuth.currentUser
-                val ref = storageReference.child("myimages").child(user!!.uid).child(UUID.randomUUID().toString())
+                val ref = storageReference.child("myimages").child(user!!.uid)
+                    .child(UUID.randomUUID().toString())
 
 
                 /*bug here images are not added consecutively to firebase storage
@@ -160,7 +128,7 @@ class UploadFragment : Fragment() {
                     image.setImageResource(R.drawable.ic_baseline_photo_24)
                     hideProgressBar()
                     fileName.text = "filename"
-                    sucessful.visibility = View.VISIBLE
+                    Toast.makeText(context, "File Uploaded Successful ", Toast.LENGTH_SHORT).show()
                 }).addOnFailureListener(OnFailureListener {
                     Toast.makeText(context, "Failed ", Toast.LENGTH_SHORT).show()
                     hideProgressBar()

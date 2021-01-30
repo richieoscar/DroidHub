@@ -11,19 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DroidHub">
-        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".activities.ForgotPasswordActivity"></activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:theme="@style/DroidHubHome" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activities.SignUpActivity" />
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".activities.LoginActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

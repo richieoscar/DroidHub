@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".fragments.ProfileFragment">
 
     <ImageView
         android:id="@+id/imageView6"
@@ -73,7 +73,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="#A099F8"
         android:fontFamily="@font/roboto"
-        android:text="FIles"
+        android:text="@string/files"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -94,7 +94,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="#229A9A"
         android:fontFamily="@font/roboto"
-        android:text="Uploads"
+        android:text="@string/uploads"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -114,7 +114,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="#2EBC67"
         android:fontFamily="@font/roboto"
-        android:text="Downloads"
+        android:text="@string/downloads"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -176,7 +176,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto"
-        android:text="Email"
+        android:text="@string/email_profile"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_profile_email"
         app:layout_constraintStart_toEndOf="@+id/imageView7" />
@@ -187,7 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/roboto"
-        android:text="Name"
+        android:text="@string/name_profile"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_prifile_name"
         app:layout_constraintStart_toEndOf="@+id/imageView8" />
@@ -198,7 +198,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/roboto"
-        android:text="Analytics"
+        android:text="@string/analytics"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="@+id/button" />

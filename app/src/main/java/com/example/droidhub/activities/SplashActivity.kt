@@ -1,10 +1,11 @@
-package com.example.droidhub
+package com.example.droidhub.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import com.example.droidhub.R
 
 @Suppress ("DEPRECATION")
 class SplashActivity : AppCompatActivity() {

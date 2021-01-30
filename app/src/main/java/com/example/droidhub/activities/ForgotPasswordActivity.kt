@@ -1,4 +1,4 @@
-package com.example.droidhub
+package com.example.droidhub.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.example.droidhub.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 
@@ -63,7 +64,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 showProgressBar()
                     mfAuth.sendPasswordResetEmail(newEmail).addOnCompleteListener(OnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Log.d(Companion.TAG, "sendResetPasswordLink: ")
+                            Log.d(TAG, "sendResetPasswordLink: ")
                             showResetAlert()
                             email.text.clear()
                             hideProgressBar()

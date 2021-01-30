@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashBoardFragment"
-        android:name="com.example.droidhub.DashBoardFragment"
+        android:name="com.example.droidhub.fragments.DashBoardFragment"
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board" >
         <action
@@ -21,15 +21,39 @@
             app:enterAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_out_right"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_filesFragment"
+            app:destination="@id/filesFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_imagesFragment"
+            app:destination="@id/imagesFragment" />
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
-        android:name="com.example.droidhub.UploadFragment"
+        android:name="com.example.droidhub.fragments.UploadFragment"
         android:label="fragment_upload"
         tools:layout="@layout/fragment_upload" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.droidhub.ProfileFragment"
+        android:name="com.example.droidhub.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.example.droidhub.fragments.FilesFragment"
+        android:label="fragment_files"
+        tools:layout="@layout/fragment_files" >
+        <action
+            android:id="@+id/action_filesFragment_to_imagesFragment"
+            app:destination="@id/imagesFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagesFragment"
+        android:name="com.example.droidhub.fragments.ImagesFragment"
+        android:label="fragment_images"
+        tools:layout="@layout/fragment_images" />
 </navigation>

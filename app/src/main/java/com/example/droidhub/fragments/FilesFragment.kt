@@ -1,14 +1,19 @@
-package com.example.droidhub
+package com.example.droidhub.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.droidhub.ImageAdapter
+import com.example.droidhub.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.FirebaseStorage
@@ -19,12 +24,11 @@ private const val TAG = "FilesFragment"
 lateinit var storage: FirebaseStorage
 
 class FilesFragment : Fragment() {
-    lateinit var storageRef: StorageReference
+    lateinit var image:Button
+    lateinit var audio:Button
+    lateinit var video:Button
+    lateinit var documents:Button
 
-    lateinit var cardView: CardView
-    lateinit var recyclerView: RecyclerView
-    lateinit var databaseReference: DatabaseReference
-    lateinit var mFirebaseAuth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -34,33 +38,24 @@ class FilesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mFirebaseAuth = FirebaseAuth.getInstance()
-        storage = FirebaseStorage.getInstance()
 
-
-        getImages()
-
+       bindViews()
+        seeImages()
     }
 
+    private fun bindViews() {
+        image =view!!.findViewById(R.id.button_images)
+        audio = view!!.findViewById(R.id.button_Audio)
+        video  = view!!.findViewById(R.id.button_video)
+         documents = view!!.findViewById(R.id.button_documents)
+    }
 
-    private fun getImages() {
-        var path = "myimages"
-        storageRef = storage.reference.child(path)
-
-        storageRef.downloadUrl.addOnSuccessListener {
-            var imgUrls = it.toString()
-            Log.d(TAG, "onActivityCreated: $imgUrls")
-
-            var images = ArrayList<String>()
-            images.add(imgUrls)
-
-
-            val adapter = ImageAdapter(view!!.context, images)
-            recyclerView = view!!.findViewById(R.id.recyclerview)
-            recyclerView.layoutManager = LinearLayoutManager(view!!.context!!)
-            recyclerView.adapter = adapter
+    fun seeImages(){
+        image.setOnClickListener{
+            view!!.findNavController().navigate(R.id.action_filesFragment_to_imagesFragment)
         }
     }
+
 
 }
 
